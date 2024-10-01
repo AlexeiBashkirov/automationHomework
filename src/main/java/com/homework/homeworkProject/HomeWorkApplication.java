@@ -16,7 +16,6 @@ public class HomeWorkApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HomeWorkApplication.class, args);
-
 	}
 
 	@RequestMapping(method = RequestMethod.GET, path = "/hellospring")

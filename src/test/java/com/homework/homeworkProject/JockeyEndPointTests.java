@@ -1,8 +1,8 @@
-package com.homework.homeworkProject.HomeWorkApplicationTests;
+package com.homework.homeworkProject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.homework.homeworkProject.PropertyReader;
+import org.apache.http.HttpHeaders;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -10,15 +10,19 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.testng.Assert;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+
 import java.io.IOException;
 
 public class JockeyEndPointTests {
     CloseableHttpClient client;
+
     long id;
     @DataProvider(name = "endpointsPOST")
     public Object[][] endpointsPost() {
@@ -68,8 +72,8 @@ public class JockeyEndPointTests {
                 ", \"lastName\": " + (last_name != null ? "\"" + last_name + "\"" : "null") +
                 ", \"horseName\": " + (horse_name != null ? "\"" + horse_name + "\"" : "null") +
                 ", \"country\": " + (country != null ? "\"" + country + "\"" : "null") + "}";
-        postRequest.setHeader("Content-Type", "application/json");
-        postRequest.setHeader("Accept", "application/json");
+        postRequest.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        postRequest.setHeader(HttpHeaders.ACCEPT, "application/json");
         postRequest.setEntity(new StringEntity(jsonInputString, ContentType.APPLICATION_JSON));
         try (CloseableHttpResponse response = client.execute(postRequest)) {
             int statusCode = response.getStatusLine().getStatusCode();
